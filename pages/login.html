@@ -5,20 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
+    <link rel="stylesheet" href="login.css" />
   </head>
   <body>
     <h1>Login</h1>
     <form action="/login" method="POST">
-      <div>
-        <label>Email</label>
-        <input type="email" name="email" required />
+      <div class='login'>
+       
+            <div>Email</div>
+            <input type="email" name="email" required />
+         
+          
+            <div>Password</div>
+            <input type="password" name="password" required />
+    
+          <div><button type="submit">LOGIN</button></div>
+        </form>
+        <div>To register <a href="/register">HERE</a>:</div>
       </div>
-      <div>
-        <label>Password</label>
-        <input type="password" name="password" required />
-      </div>
-      <button type="submit">LOGIN</button>
-    </form>
-    <div><a href="/register">Register</a></div>
   </body>
 </html>
