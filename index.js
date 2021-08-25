@@ -2,6 +2,8 @@ import express from "express";
 import session from "express-session";
 import path from "path";
 import bcrypt from "bcrypt"; // apahov gaxtnabar unenalu hamar
+import passport from "passport";
+import passportLocal from "passport-local";
 
 let users = []; // nerkayis pahel zangvatsi mej , chishty database-um
 const app = express();
@@ -16,6 +18,8 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/register", (req, res) => {
   res.sendFile(path.resolve("pages/register.html"));
