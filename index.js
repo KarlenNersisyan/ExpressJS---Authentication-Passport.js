@@ -50,7 +50,7 @@ passport.deserializeUser((id, done) => {
   );
 });
 
-app.get("/register", (req, res) => {
+app.get("/register", checkNotAuthentication, (req, res) => {
   res.sendFile(path.resolve("pages/register.html"));
 });
 
@@ -68,12 +68,38 @@ app.post("/register", async (req, res) => {
   res.redirect("/login");
 });
 
-app.get("/login", (req, res) => {
+app.get("/login", checkNotAuthentication, (req, res) => {
   res.sendFile(path.resolve("pages/login.html"));
 });
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  })
+);
+
+app.use(checkAuthentication);
 
 app.get("/", (req, res) => {
   res.send("hi");
 });
+
+// login chexats zhamanak
+function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated() === false) {
+    return res.redirect("/login");
+  }
+  next();
+}
+
+// login exats zhamanak
+function checkNotAuthentication(req, res, next) {
+  if (req.isAuthenticated() === true) {
+    return res.redirect("/");
+  }
+  next();
+}
 
 app.listen(process.env.PORT);
