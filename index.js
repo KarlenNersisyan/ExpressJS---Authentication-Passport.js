@@ -83,7 +83,12 @@ app.post(
 app.use(checkAuthentication);
 
 app.get("/", (req, res) => {
-  res.send("hi");
+  res.sendFile(path.resolve("pages/app.html"));
+});
+
+app.get("/logout", (req, res) => {
+  req.logOut();
+  res.redirect("/login");
 });
 
 // login chexats zhamanak
