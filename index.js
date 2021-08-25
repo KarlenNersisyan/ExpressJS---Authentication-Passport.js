@@ -1,9 +1,18 @@
 import express from "express";
+import session from "express-session";
 import path from "path";
 import bcrypt from "bcrypt"; // apahov gaxtnabar unenalu hamar
 
 let users = []; // nerkayis pahel zangvatsi mej , chishty database-um
 const app = express();
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
