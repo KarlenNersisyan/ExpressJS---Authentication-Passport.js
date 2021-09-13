@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: "fgfdhsfhsgysg12455",
     resave: false,
     saveUninitialized: false,
   })
