@@ -1,5 +1,5 @@
 import express from "express";
-// import session from "express-session";
+import session from "express-session";
 import path from "path";
 import bcrypt from "bcrypt"; // apahov gaxtnabar unenalu hamar
 import passport from "passport";
@@ -8,13 +8,13 @@ import passportLocal from "passport-local";
 let users = []; // nerkayis pahel zangvatsi mej , chishty database-um
 const app = express();
 
-// app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 app.use(express.static("pages"));
 app.use(express.json());
@@ -84,8 +84,11 @@ app.post(
 app.use(checkAuthentication);
 
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve("pages/app.html"));
-  // res.send("maladec");
+  try {
+    res.sendFile(path.resolve("pages/app.html"));
+  } catch (error) {
+    res.json("error");
+  }
 });
 
 app.get("/logout", (req, res) => {
